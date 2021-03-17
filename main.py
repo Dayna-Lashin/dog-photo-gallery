@@ -1,4 +1,4 @@
-from flask import Flask, render_template, requests
+from flask import Flask, render_template, request
 
 import requests
 
@@ -24,8 +24,9 @@ def dog_image_gallery():
       response = requests.get("https://dog.ceo/api/breed/" + check_breed(breed) + "/images/random/30")
       data = response.json()
       dog_images = data["message"]
+      return render_template("dogs.html", images=dog_images, breed=prettify_dog_breed(breed), errors=[])
 
-  return render_template("dogs.html")
+  return render_template("dogs.html", images=[], breed="", errors=errors)
 
 
 app.debug = True
